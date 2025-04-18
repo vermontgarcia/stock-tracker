@@ -1,11 +1,16 @@
 {
   "name": "stock-tracker",
-  "private": true,
   "version": "0.0.0",
+  "description": "A mobile-responsive, real-time stock and forex tracking web application built with HTML5, CSS, and Vanilla JavaScript.",
+  "author": "Vermont Garcia",
+  "license": "ISC",
+  "main": "main.mjs",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --emptyOutDir",
+    "lint": "eslint *.js src/**/*.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {
