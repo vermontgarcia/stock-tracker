@@ -1,16 +1,32 @@
-import './styles/main.css';
-import './styles/large.css';
-import { setupHeader } from './components/header.mjs';
-import { setupFooter } from './components/footer.mjs';
-import { setupNavigation } from './components/navigation.mjs';
+import { renderHome } from './pages/home.mjs';
+import { renderCharts } from './pages/charts.mjs';
+import { renderNews } from './pages/news.mjs';
+import { renderWatchlist } from './pages/watchlist.mjs';
+import { renderOrders } from './pages/orders.mjs';
 
-document.querySelector('#app').innerHTML = `
-  <header></header>
-  <main>
-  </main>
-  <footer></footer>
-`;
+const routes = {
+  '/': renderHome,
+  '/charts': renderCharts,
+  '/news': renderNews,
+  '/watchlist': renderWatchlist,
+  '/orders': renderOrders,
+};
 
-setupHeader(document.querySelector('header'));
-setupFooter(document.querySelector('footer'));
-setupNavigation(document.querySelector('nav'));
+const navigate = (path) => {
+  history.pushState({}, '', path);
+  routes[path]();
+};
+
+window.addEventListener('popstate', () => {
+  const path = window.location.pathname;
+  routes[path]?.();
+});
+
+document.body.addEventListener('click', (e) => {
+  if (e.target.matches('a[data-link]')) {
+    e.preventDefault();
+    navigate(e.target.getAttribute('href'));
+  }
+});
+
+routes[window.location.pathname]?.();

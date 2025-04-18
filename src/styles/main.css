@@ -153,6 +153,7 @@ button:focus-visible {
 body {
   display: flex;
   flex-direction: column;
+  min-width: 320px;
 }
 
 #app {
@@ -296,7 +297,7 @@ header>div {
   .menu.menu-open {
     flex-direction: column;
     opacity: 1;
-    height: 12rem;
+    height: 15rem;
     transition: height 500ms ease-out, opacity 400ms ease-out;
   }
 }
