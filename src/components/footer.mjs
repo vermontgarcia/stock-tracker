@@ -1,3 +1,7 @@
+import facebookLogo from '../images/facebook.svg';
+import twitterLogo from '../images/twitter.svg';
+import instagramLogo from '../images/instagram.svg';
+
 export const setupFooter = (element) => {
   const setFooter = () => {
     element.innerHTML = `
@@ -11,7 +15,7 @@ export const setupFooter = (element) => {
       <div class="social-media">
         <a href="https://facebook.com" target="_blank">
           <img
-            src="./src/images/facebook.svg"
+            src="${facebookLogo}"
             alt="facebook-icon"
             width="32"
             height="32"
@@ -19,7 +23,7 @@ export const setupFooter = (element) => {
         </a>
         <a href="https://twitter.com" target="_blank">
           <img
-            src="./src/images/twitter.svg"
+            src="${twitterLogo}"
             alt="twitter-icon"
             width="32"
             height="32"
@@ -27,7 +31,7 @@ export const setupFooter = (element) => {
         </a>
         <a href="https://instagram.com" target="_blank">
           <img
-            src="./src/images/instagram.svg"
+            src="${instagramLogo}"
             alt="instagram-icon"
             width="32"
             height="32"
