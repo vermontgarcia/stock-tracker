@@ -17,10 +17,12 @@ export const setupNavigation = (element, page = 'home') => {
   const setNavigation = () => {
     element.innerHTML = `
       <a href="/" ${page === 'home' ? 'class="active"' : ''}>Home</a>
-      <a href="charts.html">Charts</a>
-      <a href="news.html">News</a>
-      <a href="watchlist.html">Watchlist</a>
-      <a href="Orders.html">Orders</a>
+      <a href="/charts" ${page === 'charts' ? 'class="active"' : ''}>Charts</a>
+      <a href="/news" ${page === 'news' ? 'class="active"' : ''}>News</a>
+      <a href="/watchlist" ${
+        page === 'watchlist' ? 'class="active"' : ''
+      }>Watchlist</a>
+      <a href="/orders" ${page === 'orders' ? 'class="active"' : ''}>Orders</a>
     `;
   };
   setNavigation();
