@@ -1,11 +1,13 @@
 import './styles/main.css';
+import './styles/large.css';
 import { setupHeader } from './components/header.mjs';
 import { setupFooter } from './components/footer.mjs';
 import { setupNavigation } from './components/navigation.mjs';
 
 document.querySelector('#app').innerHTML = `
   <header></header>
-  <main></main>
+  <main>
+  </main>
   <footer></footer>
 `;
 

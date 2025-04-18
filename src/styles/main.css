@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -93,4 +93,240 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+
+/* Site Styles - Mobile First*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+:root {
+  --background-color-dark: #333;
+  --background-color-light: #DDD;
+  --text-color-dark: #000;
+  --text-color-light: #F2F2F2;
+  /* colors for svg */
+  --svg-primary: invert(100%) sepia(0%) saturate(232%) hue-rotate(50deg) brightness(113%) contrast(90%);
+  --svg-accent-2: invert(36%) sepia(6%) saturate(3647%) hue-rotate(130deg) brightness(101%) contrast(80%);
+  /* Form */
+  --not-valid: #990000;
+  --valid: #008000;
+  --required-asterisc: #990000;
+  --field-background: #E2E8EB;
+  --form-labels: #000000;
+  --submit-button: #E2E8EB;
+}
+
+:root {
+  /* Variables Declaration */
+  --text-color: #000000;
+  /* Primary Colors */
+  --deep-sea-blue: #03587B;
+  --fountain-blue: #5BB4C3;
+  --mercury: #E2E8EB;
+  --white: #FFFFFF;
+  /* Secondary Colors */
+  --aqua-green: #6FCF97;
+  --sky-blue: #56CCF2;
+  --sunlight-yellow: #F2C94C;
+  --soft-grey: #E0E0E0;
+  /* Reviews */
+  --stars: #FFA500;
+  /* Form */
+  --required-asterisc: #990000;
+  /* Font Sizes */
+  --headding: 40px;
+  --sub-headding: 35px;
+  --title: 24px;
+  --label: 18px;
+  --body: 14px;
+  --button: 18px;
+  --copyrigth: 10px;
+  --copyrigth-small: 10px;
+  --ham-menu: 60px;
+  --ham-menu-show: 40px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Hero */
+.hero picture img {
+  width: 100%;
+  height: auto;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.hero picture {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.call-to-action {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  align-self: flex-end;
+  justify-self: end;
+  background-color: orange;
+  padding: 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 1);
+  position: relative;
+  bottom: 15%;
+  right: 8%;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+/* Header */
+header {
+  background-color: var(--background-color-dark);
+  max-height: fit-content;
+}
+
+header>div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo-container {
+  display: flex;
+  margin: 0.5rem;
+}
+
+.logo-name-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-left: 0.5rem;
+  color: var(--text-color-light);
+  padding: 5px;
+}
+
+.logo-name-container p:first-child {
+  font-size: 1.5rem;
+}
+
+.menu-btn {
+  color: var(--text-color-light);
+}
+
+/* Menu  */
+.menu {
+  overflow: hidden;
+  background-color: var(--background-color-dark);
+  display: flex;
+  justify-content: flex-end;
+  height: 0;
+  transition: height 200ms ease-out;
+}
+
+.menu a {
+  float: left;
+  display: block;
+  color: var(--text-color-light);
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 100%;
+}
+
+.menu a:hover,
+.menu-btn a:hover {
+  background-color: var(--background-color-light);
+  color: var(--text-color-dark);
+  cursor: pointer;
+}
+
+.menu a.active {
+  background-color: var(--background-color-light);
+  color: var(--text-color-dark);
+}
+
+.menu-btn .menu-icon {
+  display: none;
+  padding: 0.3rem 0.5rem;
+  margin: 0.5rem;
+}
+
+@media screen and (max-width: 600px) {
+  .menu-btn a.menu-icon {
+    float: right;
+    display: block;
+  }
+
+  .menu a {
+    display: none;
+    width: unset;
+  }
+
+  .menu.menu-open a {
+    float: none;
+    display: block;
+    text-align: left;
+    width: unset;
+  }
+
+  .menu.menu-open {
+    flex-direction: column;
+    opacity: 1;
+    height: 12rem;
+    transition: height 500ms ease-out, opacity 400ms ease-out;
+  }
+}
+
+.thankyou section,
+.discover section {
+  padding: 1rem;
+}
+
+/* Footer */
+footer {
+  background-color: var(--background-color-dark);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color-light);
+  height: fit-content;
+}
+
+footer img {
+  height: 2.2rem;
+  width: 2.2rem;
+  padding: 0 5px;
+  filter: var(--svg-primary);
+}
+
+footer img:hover {
+  filter: var(--svg-accent-2);
+}
+
+footer .social-media {
+  margin: 1rem 0;
 }
