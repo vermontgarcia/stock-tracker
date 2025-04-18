@@ -52,6 +52,16 @@
     height: 100%;
     object-fit: cover;
   }
+
+  footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 1rem 10%;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  
 }
 
 @media screen and (min-width: 1200px) {
@@ -76,11 +86,7 @@
     margin: 0 auto;
   }
 
-  footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 1rem 10%;
-  }
+  
 
   footer .social-media {
     text-align: center;

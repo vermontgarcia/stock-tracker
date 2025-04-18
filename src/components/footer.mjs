@@ -1,6 +1,14 @@
 import facebookLogo from '../images/facebook.svg';
 import twitterLogo from '../images/twitter.svg';
 import instagramLogo from '../images/instagram.svg';
+import { getLastUpdate, getYear } from '../utils/utils.mjs';
+
+const updateFooterData = () => {
+  document.getElementById('current-year').innerHTML = getYear();
+  document.getElementById(
+    'last-modified'
+  ).innerHTML = `Last Modification: ${getLastUpdate()}`;
+};
 
 export const setupFooter = (element) => {
   const setFooter = () => {
@@ -49,4 +57,5 @@ export const setupFooter = (element) => {
     `;
   };
   setFooter();
+  updateFooterData();
 };
