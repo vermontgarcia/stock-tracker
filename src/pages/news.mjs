@@ -15,6 +15,16 @@ import { newsCardTemplate } from '../utils/templates.mjs';
 
 const finnHubAPIClient = new FinnHubAPIClient();
 
+const getNews = async (category = 'crypto') => {
+  const news = await finnHubAPIClient.searchNewsByCategory(category);
+  console.log(news);
+  const newsContainer = `<div class="cards-container">${news
+    .filter((item) => item.summary !== '')
+    .map(newsCardTemplate)
+    .join('')}</div>`;
+  document.querySelector('main')?.insertAdjacentHTML(beforeEnd, newsContainer);
+};
+
 export const renderNews = () => {
   document.querySelector('#app').innerHTML = `
     <header></header>
@@ -24,6 +34,7 @@ export const renderNews = () => {
   setPageMetadata(news);
   setupHeader(document.querySelector('header'));
   setupFooter(document.querySelector('footer'));
+  setupNavigation(document.querySelector('nav'), news);
   setupHeroImg(document.querySelector('main'), {
     small: heroNewsSmall,
     medium: heroNewsMedium,
@@ -31,14 +42,4 @@ export const renderNews = () => {
     title: capitalize(news),
   });
   getNews('crypto');
-};
-
-const getNews = async (category = 'crypto') => {
-  const news = await finnHubAPIClient.searchNewsByCategory(category);
-  console.log(news);
-  const newsContainer = `<div class="cards-container">${news
-    .filter((item) => item.summary !== '')
-    .map(newsCardTemplate)
-    .join('')}</div>`;
-  document.querySelector('main')?.insertAdjacentHTML(beforeEnd, newsContainer);
 };
