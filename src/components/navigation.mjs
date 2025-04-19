@@ -1,3 +1,5 @@
+import { charts, home, news, orders, watchlist } from '../utils/consts.mjs';
+
 const enableResponsiveMenu = () => {
   const handleMenu = () => {
     const menu = document.getElementById('menu');
@@ -13,16 +15,16 @@ const enableResponsiveMenu = () => {
   document.getElementById('menu-btn').addEventListener('click', handleMenu);
 };
 
-export const setupNavigation = (element, page = 'home') => {
+export const setupNavigation = (element, page = home) => {
   const setNavigation = () => {
     element.innerHTML = `
-      <a href="/" ${page === 'home' ? 'class="active"' : ''}>Home</a>
-      <a href="/charts" ${page === 'charts' ? 'class="active"' : ''}>Charts</a>
-      <a href="/news" ${page === 'news' ? 'class="active"' : ''}>News</a>
+      <a href="/" ${page === home ? 'class="active"' : ''}>Home</a>
+      <a href="/charts" ${page === charts ? 'class="active"' : ''}>Charts</a>
+      <a href="/news" ${page === news ? 'class="active"' : ''}>News</a>
       <a href="/watchlist" ${
-        page === 'watchlist' ? 'class="active"' : ''
+        page === watchlist ? 'class="active"' : ''
       }>Watchlist</a>
-      <a href="/orders" ${page === 'orders' ? 'class="active"' : ''}>Orders</a>
+      <a href="/orders" ${page === orders ? 'class="active"' : ''}>Orders</a>
     `;
   };
   setNavigation();
