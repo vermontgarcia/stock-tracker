@@ -4,57 +4,31 @@ import '../styles/large.css';
 import heroNewsSmall from '../images/hero-news-small.webp';
 import heroNewsMedium from '../images/hero-news-medium.webp';
 import heroNewsLarge from '../images/hero-news-large.webp';
-import StockChart from '../components/StockChart.mjs';
 import { setupHeader } from '../components/header.mjs';
 import { setupFooter } from '../components/footer.mjs';
 import { setupNavigation } from '../components/navigation.mjs';
-import {
-  capitalize,
-  getLocalStorage,
-  setLocalStorage,
-  setPageMetadata,
-} from '../utils/utils.mjs';
-import {
-  afterBegin,
-  afterEnd,
-  BINANCE_BTCUSDT,
-  charts,
-  chartSimbol,
-  liveStockChart,
-} from '../utils/consts.mjs';
+import { capitalize, setPageMetadata } from '../utils/utils.mjs';
+import { afterEnd, BINANCE_BTCUSDT, charts } from '../utils/consts.mjs';
 import { setupHeroImg } from '../components/heroImg.mjs';
-import { FINNHUB_API_KEY, FINNHUB_WS_URL } from '../utils/consts.env.mjs';
 import { ChartSearchBar } from '../components/ChartSearchBar.mjs';
-
-const addDataPoint = (point) => {
-  const dataSet = getLocalStorage(liveStockChart) || [];
-  dataSet.push(point);
-  setLocalStorage(liveStockChart, dataSet);
-};
-
-const setupStockChart = () => {
-  const dataset = getLocalStorage(liveStockChart) || [];
-  const stockChart = new StockChart();
-  stockChart.data = dataset;
-
-  const chart = document.querySelector('stock-chart');
-  const socket = new WebSocket(`${FINNHUB_WS_URL}?token=${FINNHUB_API_KEY}`);
-  const symbol = getLocalStorage(chartSimbol) || BINANCE_BTCUSDT;
-  socket.addEventListener('open', (event) => {
-    socket.send(JSON.stringify({ type: 'subscribe', symbol }));
-  });
-
-  socket.addEventListener('message', (event) => {
-    const point = JSON.parse(event.data).data[0].p;
-    addDataPoint(point);
-    chart.addPoint(point);
-  });
-};
+import {
+  initAlphaChart,
+  loadAlphaHistoricalCandles,
+} from '../components/realTimeChart.mjs';
+import {
+  connectWebSocket,
+  initFinnHubChart,
+} from '../components/realTimeWSChart.mjs';
 
 export const renderCharts = () => {
   document.querySelector('#app').innerHTML = `
     <header></header>
-    <main><stock-chart></stock-chart></main>
+    <main>
+      <div id="charts">
+        <div id="alpha-chart"></div>
+        <div id="finnhub-chart"></div>
+      </div>
+    </main>
     <footer></footer>
   `;
   setPageMetadata(charts);
@@ -75,6 +49,8 @@ export const renderCharts = () => {
   );
 
   searchBar.init();
-
-  setupStockChart();
+  initAlphaChart('alpha-chart');
+  loadAlphaHistoricalCandles('AAPL', '1min');
+  initFinnHubChart('finnhub-chart');
+  connectWebSocket(BINANCE_BTCUSDT, 60);
 };

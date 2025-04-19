@@ -7,4 +7,31 @@ main > stock-chart {
 
 .search-box-container {
   z-index: 100;
+  position: absolute;
+}
+
+#candlesChart {
+  width: 90%;
+  flex-grow: 1;
+  background-color: aqua;
+  margin: 2rem;
+}
+
+#charts {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  flex-grow: 1;
+}
+
+/* .tv-lightweight-charts {
+  width: 90% !important;
+} */
+
+
+@media screen and (min-width: 900px) {
+  #charts {
+    grid-template-columns: 1fr 1fr;
+  }
+
 }

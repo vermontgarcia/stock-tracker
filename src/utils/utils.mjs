@@ -60,3 +60,28 @@ export const addNewsCategory = (category) => {
   }
   setLocalStorage(stNewsCat, categories);
 };
+
+export const setupStockChart = () => {
+  const dataset = getLocalStorage(liveStockChart) || [];
+  const stockChart = new StockChart();
+  stockChart.data = dataset;
+
+  const chart = document.querySelector('stock-chart');
+  const socket = new WebSocket(`${FINNHUB_WS_URL}?token=${FINNHUB_API_KEY}`);
+  const symbol = getLocalStorage(chartSimbol) || BINANCE_BTCUSDT;
+  socket.addEventListener('open', (event) => {
+    socket.send(JSON.stringify({ type: 'subscribe', symbol }));
+  });
+
+  socket.addEventListener('message', (event) => {
+    const point = JSON.parse(event.data).data[0].p;
+    addDataPoint(point);
+    chart.addPoint(point);
+  });
+};
+
+export const addDataLocalStorage = (data, key) => {
+  const dataSet = getLocalStorage(key) || [];
+  dataSet.push(data);
+  setLocalStorage(key, dataSet);
+};

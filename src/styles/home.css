@@ -12,6 +12,7 @@
 
 .home-container .charts-home {
   grid-area: charts;
+  display: grid;
 }
 .home-container .news-home {
   grid-area: news;
@@ -30,7 +31,11 @@
 
 /* Chart */
 
-/* .charts-home  */
+.alpha-home {
+  background-color: aqua;
+  flex-grow: 1;
+  width: 100%;
+}
 
 stock-chart {
   /* position: absolute; */
@@ -40,6 +45,8 @@ stock-chart {
   width: 90%;
   height: 350px;
 }
+
+
 
 
 @media screen and (min-width: 900px) {
