@@ -1,9 +1,5 @@
 import { FINNHUB_API_KEY, FINNHUB_BASE_URL } from '../utils/consts.env.mjs';
 import { convertToJson } from '../utils/utils.mjs';
-
-console.log('API_KEY', FINNHUB_API_KEY);
-console.log('API_KEY', FINNHUB_BASE_URL);
-
 export default class FinnHubAPIClient {
   constructor() {
     this.baseUrl = FINNHUB_BASE_URL;

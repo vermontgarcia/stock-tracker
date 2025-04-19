@@ -8,7 +8,7 @@ export const renderHome = () => {
   document.querySelector('#app').innerHTML = `
     <header></header>
     <main>
-      <h1>Home</h1>
+      
     </main>
     <footer></footer>
   `;

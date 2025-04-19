@@ -21,7 +21,7 @@ export const newsCardTemplate = ({
 }) => `
   <div id="${id}-${category}" class="card news">
     <p class="category">${category.toUpperCase()}</p>
-    <p class="datetime">${new Date(datetime)}</p>
+    <p class="datetime">${new Date(datetime * 1000)}</p>
     <p class="headline"><strong>${headline}</strong></p>
     <p class="source">
       <a href="${url}" target="_blank"> ${source.toUpperCase()} </a>

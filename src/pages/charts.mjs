@@ -9,9 +9,7 @@ import { charts } from '../utils/consts.mjs';
 export const renderCharts = () => {
   document.querySelector('#app').innerHTML = `
     <header></header>
-    <main>
-      <h1>Charts</h1>
-    </main>
+    <main></main>
     <footer></footer>
   `;
   setPageMetadata(charts);

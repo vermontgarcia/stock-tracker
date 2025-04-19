@@ -8,3 +8,7 @@ export const stNewsCat = 'st-news-cat';
 
 export const afterBegin = 'afterBegin';
 export const beforeEnd = 'beforeEnd';
+export const afterEnd = 'afterEnd';
+
+export const searchOptions = 'searchOptions';
+export const lastSearch = 'lastSearch';

@@ -1,24 +1,25 @@
 import '../styles/main.css';
-import '../styles/large.css';
 import '../styles/news.css';
+import '../styles/large.css';
 import heroNewsSmall from '../images/hero-news-small.webp';
 import heroNewsMedium from '../images/hero-news-medium.webp';
 import heroNewsLarge from '../images/hero-news-large.webp';
-import FinnHubAPIClient from '../api/FinnHubAPIClient.mjs';
 import { setupHeader } from '../components/header.mjs';
 import { setupNavigation } from '../components/navigation.mjs';
 import { setupFooter } from '../components/footer.mjs';
-import { capitalize, setPageMetadata } from '../utils/utils.mjs';
+import {
+  capitalize,
+  getLocalStorage,
+  setPageMetadata,
+} from '../utils/utils.mjs';
 import { setupHeroImg } from '../components/heroImg.mjs';
-import { beforeEnd, news } from '../utils/consts.mjs';
+import { afterEnd, beforeEnd, lastSearch, news } from '../utils/consts.mjs';
 import { newsCardTemplate } from '../utils/templates.mjs';
+import { NewsSearchBar } from '../components/NewsSearchBar.mjs';
 
-const finnHubAPIClient = new FinnHubAPIClient();
-
-const getNews = async (category = 'crypto') => {
-  const news = await finnHubAPIClient.searchNewsByCategory(category);
-  console.log(news);
-  const newsContainer = `<div class="cards-container">${news
+const restoreLastSearch = () => {
+  const news = getLocalStorage(lastSearch) || [];
+  const newsContainer = `<div id="cards-container" class="cards-container">${news
     .filter((item) => item.summary !== '')
     .map(newsCardTemplate)
     .join('')}</div>`;
@@ -41,5 +42,11 @@ export const renderNews = () => {
     large: heroNewsLarge,
     title: capitalize(news),
   });
-  getNews('crypto');
+
+  const searchBar = new NewsSearchBar(
+    document.querySelector('.hero'),
+    afterEnd
+  );
+  searchBar.init();
+  restoreLastSearch();
 };

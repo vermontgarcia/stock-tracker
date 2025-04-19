@@ -9,9 +9,7 @@ import { watchlist } from '../utils/consts.mjs';
 export const renderWatchlist = () => {
   document.querySelector('#app').innerHTML = `
     <header></header>
-    <main>
-      <h1>Watchlist</h1>
-    </main>
+    <main></main>
     <footer></footer>
   `;
   setPageMetadata(watchlist);

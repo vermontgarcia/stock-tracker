@@ -9,9 +9,7 @@ import { orders } from '../utils/consts.mjs';
 export const renderOrders = () => {
   document.querySelector('#app').innerHTML = `
     <header></header>
-    <main>
-      <h1>Orders</h1>
-    </main>
+    <main></main>
     <footer></footer>
   `;
   setPageMetadata(orders);
