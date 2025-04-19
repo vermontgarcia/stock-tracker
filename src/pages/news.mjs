@@ -12,21 +12,19 @@ import { capitalize, setPageMetadata } from '../utils/utils.mjs';
 import { setupHeroImg } from '../components/heroImg.mjs';
 import { beforeEnd, news } from '../utils/consts.mjs';
 import { newsCardTemplate } from '../utils/templates.mjs';
-import { newsData } from '../utils/tempData.mjs';
 
 const finnHubAPIClient = new FinnHubAPIClient();
 
 export const renderNews = () => {
   document.querySelector('#app').innerHTML = `
     <header></header>
-    <main><div id="news-page"></div></main>
+    <main></main>
     <footer></footer>
   `;
   setPageMetadata(news);
   setupHeader(document.querySelector('header'));
   setupFooter(document.querySelector('footer'));
-  setupNavigation(document.querySelector('nav'), news);
-  setupHeroImg(document.querySelector('#news-page'), {
+  setupHeroImg(document.querySelector('main'), {
     small: heroNewsSmall,
     medium: heroNewsMedium,
     large: heroNewsLarge,
@@ -42,8 +40,5 @@ const getNews = async (category = 'crypto') => {
     .filter((item) => item.summary !== '')
     .map(newsCardTemplate)
     .join('')}</div>`;
-
-  document
-    .querySelector('#news-page')
-    ?.insertAdjacentHTML(beforeEnd, newsContainer);
+  document.querySelector('main')?.insertAdjacentHTML(beforeEnd, newsContainer);
 };
