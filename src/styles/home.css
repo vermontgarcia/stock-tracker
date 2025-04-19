@@ -28,6 +28,18 @@
   border: 1px solid var(--mercury);
 }
 
+/* Chart */
+
+/* .charts-home  */
+
+stock-chart {
+  /* position: absolute; */
+  /* top: 80px; */
+  margin-top: -40px;
+  display: block;
+  width: 90%;
+  height: 350px;
+}
 
 
 @media screen and (min-width: 900px) {

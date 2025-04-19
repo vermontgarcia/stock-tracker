@@ -1,0 +1,10 @@
+main > stock-chart {
+  margin-top: -40px;
+  display: block;
+  width: 90%;
+  height: 650px;
+}
+
+.search-box-container {
+  z-index: 100;
+}

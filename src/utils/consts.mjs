@@ -11,4 +11,9 @@ export const beforeEnd = 'beforeEnd';
 export const afterEnd = 'afterEnd';
 
 export const searchOptions = 'searchOptions';
+export const chartOptions = 'chartOptions';
 export const lastSearch = 'lastSearch';
+export const liveStockChart = 'liveStockChart';
+export const chartSimbol = 'chartSimbol';
+
+export const BINANCE_BTCUSDT = 'BINANCE:BTCUSDT';
