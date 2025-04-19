@@ -9,7 +9,7 @@ export const heroImgTemplate = ({ large, medium, small, title }) => `
   </div>
 `;
 
-export const newsCardTemplat = ({
+export const newsCardTemplate = ({
   id,
   category,
   datetime,
@@ -20,13 +20,14 @@ export const newsCardTemplat = ({
   summary,
 }) => `
   <div id="${id}-${category}" class="card news">
-    <img src="${image}" alt="${source} logo image" />
-    <p class="datetime">${datetime}</p>
-    <p class="category">${category}</p>
-    <p class="headline">${headline}</p>
+    <p class="category">${category.toUpperCase()}</p>
+    <p class="datetime">${new Date(datetime)}</p>
+    <p class="headline"><strong>${headline}</strong></p>
     <p class="source">
-      <a href="${url}" target="_blank"> ${source} </a>
+      <a href="${url}" target="_blank"> ${source.toUpperCase()} </a>
+      <img src="${image}" alt="${source} logo image" width="15" height="12" loading="lazy" />
     </p>
-    <p class="summary">${summary}</p>
+    <p class="summary">${summary.substring(0, 300)}...</p>
+    <dialog>${summary}</dialog>
   </div>
 `;
