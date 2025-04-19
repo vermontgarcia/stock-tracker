@@ -1,0 +1,53 @@
+
+.home-container {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "charts"
+    "news"
+    "watchlist"
+    "orders";
+}
+
+.home-container .charts-home {
+  grid-area: charts;
+}
+.home-container .news-home {
+  grid-area: news;
+}
+.home-container .watchlist-home {
+  grid-area: watchlist;
+}
+.home-container .orders-home {
+  grid-area: orders;
+}
+
+.home-container > div {
+  border-radius: 5px;
+  border: 1px solid var(--mercury);
+}
+
+
+
+@media screen and (min-width: 900px) {
+  .home-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .home-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .home-container {
+    grid-template-areas:
+      "news charts charts"
+      "news charts charts"
+      "news charts charts"
+      "news watchlist orders"
+      "news watchlist orders";
+  }
+}

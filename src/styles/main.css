@@ -177,6 +177,13 @@ h1 {
   z-index: 1;
 }
 
+h2 {
+  font-size: 2.5rem;
+  color: var(--mercury);
+  text-shadow: 1px 10px 8px rgba(0, 0, 0, 1);
+  z-index: 1;
+}
+
 /* Hero */
 /* .hero picture img {
   width: 100%;
