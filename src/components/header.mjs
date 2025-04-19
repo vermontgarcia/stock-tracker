@@ -1,5 +1,4 @@
 export const setupHeader = (element) => {
-  const page = 'home';
   const setHeader = () => {
     element.innerHTML = `
       <div>

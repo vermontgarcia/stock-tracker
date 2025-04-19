@@ -12,7 +12,6 @@ export const renderHome = () => {
     </main>
     <footer></footer>
   `;
-
   setupHeader(document.querySelector('header'));
   setupFooter(document.querySelector('footer'));
   setupNavigation(document.querySelector('nav'));

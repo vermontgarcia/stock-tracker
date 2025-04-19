@@ -16,13 +16,10 @@
       property="og:description"
       content="Track stocks and forex in real time, manage your watchlist, analyze live charts, and place simulated trades — all from a mobile-friendly dashboard built with HTML, CSS, and Vanilla JS."
     />
-    <meta
-      property="og:url"
-      content="https://stoktraker.netlify.app/charts/index.html"
-    />
+    <meta property="og:url" content="https://stoktraker.netlify.app/news" />
     <meta
       property="og:image"
-      content="https://stoktraker.netlify.app/images/og-image.webp"
+      content="https://stoktraker.netlify.app/images/og-news.webp"
     />
     <link
       rel="stylesheet"
@@ -34,3 +31,14 @@
     <div id="app">Here</div>
   </body>
 </html>
+
+<div id="${id}-${category}" class="card news">
+  <img src="${imgUrl}" alt="${source} logo image" />
+  <p class="date">${category}</p>
+  <p class="date">${date}</p>
+  <p class="headline">${headline}</p>
+  <p class="source">
+    <a href="${url}" target="_blank"> ${source} </a>
+  </p>
+  <p class="summary">${summary}</p>
+</div>

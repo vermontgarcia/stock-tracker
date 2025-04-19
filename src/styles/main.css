@@ -154,6 +154,8 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 320px;
+  font-family: "Manjari", sans-serif;
+  font-weight: 700;
 }
 
 #app {
@@ -168,23 +170,30 @@ main {
   flex-grow: 1;
 }
 
+h1 {
+  font-size: 4rem;
+  color: var(--mercury);
+  text-shadow: 1px 10px 8px rgba(0, 0, 0, 1);
+  z-index: 1;
+}
+
 /* Hero */
-.hero picture img {
+/* .hero picture img {
   width: 100%;
   height: auto;
-}
+} */
 
-.hero {
+/* .hero {
   display: grid;
   grid-template-columns: 1fr;
-}
+} */
 
-.hero picture {
+/* .hero picture {
   grid-column: 1/2;
   grid-row: 1/2;
-}
+} */
 
-.call-to-action {
+/* .call-to-action {
   grid-column: 1/2;
   grid-row: 1/2;
   align-self: flex-end;
@@ -197,7 +206,7 @@ main {
   position: relative;
   bottom: 15%;
   right: 8%;
-}
+} */
 
 
 a {
