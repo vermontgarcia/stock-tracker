@@ -36,6 +36,11 @@
   flex-grow: 1;
   width: 100%;
 }
+.finnhub-home {
+  background-color: aqua;
+  flex-grow: 1;
+  width: 100%;
+}
 
 stock-chart {
   /* position: absolute; */
@@ -45,7 +50,6 @@ stock-chart {
   width: 90%;
   height: 350px;
 }
-
 
 
 

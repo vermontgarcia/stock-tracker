@@ -11,6 +11,7 @@ import { capitalize, getLocalStorage } from '../utils/utils.mjs';
 import { setupHeroMainImg } from '../components/heroImg.mjs';
 import {
   beforeEnd,
+  BINANCE_BTCUSDT,
   charts,
   lastSearch,
   news,
@@ -22,6 +23,10 @@ import {
   initAlphaChart,
   loadAlphaHistoricalCandles,
 } from '../components/realTimeChart.mjs';
+import {
+  connectWebSocket,
+  initFinnHubChart,
+} from '../components/realTimeWSChart.mjs';
 
 const restoreLastSearch = () => {
   const news = getLocalStorage(lastSearch) || [];
@@ -33,6 +38,22 @@ const restoreLastSearch = () => {
   document
     .querySelector('#news-home')
     ?.insertAdjacentHTML(beforeEnd, newsContainer);
+  const cards = document.querySelectorAll('.card.news');
+
+  cards.forEach((card) => {
+    const dialog = card.querySelector('dialog');
+    const closeBtn = dialog.querySelector('button');
+
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('dialog') || e.target.tagName === 'BUTTON') return;
+      dialog.showModal();
+    });
+
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dialog.close();
+    });
+  });
 };
 
 export const renderHome = () => {
@@ -42,7 +63,7 @@ export const renderHome = () => {
       <div class="home-container" >
         <div id="news-home" class="news-home"></div>
         <div id="orders-home" class="orders-home"></div>
-        <div id="charts-home" class="charts-home"><div id="alpha-chart"></div></div>
+        <div id="charts-home" class="charts-home"><div id="finnhub-home"></div></div>
         <div id="watchlist-home" class="watchlist-home"></div>
       </div>
     </main>
@@ -78,6 +99,8 @@ export const renderHome = () => {
   });
 
   restoreLastSearch();
-  initAlphaChart('alpha-chart');
-  loadAlphaHistoricalCandles('AAPL', '1min');
+  // initAlphaChart('alpha-chart');
+  // loadAlphaHistoricalCandles('AAPL', '1min');
+  initFinnHubChart('finnhub-home');
+  connectWebSocket(BINANCE_BTCUSDT, 60);
 };

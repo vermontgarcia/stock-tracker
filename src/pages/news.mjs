@@ -24,6 +24,23 @@ const restoreLastSearch = () => {
     .map(newsCardTemplate)
     .join('')}</div>`;
   document.querySelector('main')?.insertAdjacentHTML(beforeEnd, newsContainer);
+
+  const cards = document.querySelectorAll('.card.news');
+
+  cards.forEach((card) => {
+    const dialog = card.querySelector('dialog');
+    const closeBtn = dialog.querySelector('button');
+
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('dialog') || e.target.tagName === 'BUTTON') return;
+      dialog.showModal();
+    });
+
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dialog.close();
+    });
+  });
 };
 
 export const renderNews = () => {

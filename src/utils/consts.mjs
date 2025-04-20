@@ -15,5 +15,6 @@ export const chartOptions = 'chartOptions';
 export const lastSearch = 'lastSearch';
 export const liveStockChart = 'liveStockChart';
 export const chartSimbol = 'chartSimbol';
+export const symbolsSearch = 'symbolsSearch';
 
 export const BINANCE_BTCUSDT = 'BINANCE:BTCUSDT';

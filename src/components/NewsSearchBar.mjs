@@ -1,6 +1,11 @@
 import FinnHubAPIClient from '../api/FinnHubAPIClient.mjs';
-import { beforeEnd, lastSearch, searchOptions } from '../utils/consts.mjs';
-import { newsCardTemplate } from '../utils/templates.mjs';
+import {
+  beforeEnd,
+  lastSearch,
+  searchOptions,
+  symbolsSearch,
+} from '../utils/consts.mjs';
+import { newsCardTemplate, searchSymbolTemplate } from '../utils/templates.mjs';
 import { getLocalStorage, setLocalStorage } from '../utils/utils.mjs';
 
 const finnHubAPIClient = new FinnHubAPIClient();
@@ -9,12 +14,35 @@ export class NewsSearchBar {
   constructor(element, position) {
     this.element = element;
     this.position = position;
+    this.option = 'market';
   }
 
   renderSearchBar() {
     this.element.insertAdjacentHTML(
       this.position,
       `
+        <form>
+          <label>
+            <input type="radio" name="option" value="market" checked>
+            Market News
+          </label>
+          <label>
+            <input type="radio" name="option" value="company">
+            Company News
+          </label>
+          <label>
+            <input type="radio" name="option" value="symbol">
+            Symbols Search
+          </label>
+          <div id="dates" class="hidden">
+            <label for="dob">From:
+              <input type="date" id="from" name="from">
+            </label>
+            <label for="dob">To:
+              <input type="date" id="to" name="to">
+            </label>
+          </div>
+        </form>
         <div class="search-box-container">
         <input type="text" id="searchInput" placeholder="type or select...">
         <div id="dropdown" class="dropdown"></div>
@@ -34,6 +62,7 @@ export class NewsSearchBar {
     this.searchIcon = document.getElementById('search-icon');
     this.addIcon = document.getElementById('add-icon');
     this.clearIcon = document.getElementById('clear-icon');
+    this.dates = document.getElementById('dates');
 
     // Show dropdown on focus
     this.searchInput?.addEventListener('focus', () =>
@@ -55,6 +84,49 @@ export class NewsSearchBar {
     this.searchIcon?.addEventListener('click', this.handleSearch.bind(this));
     this.addIcon?.addEventListener('click', this.saveOption.bind(this));
     this.clearIcon?.addEventListener('click', this.clearInput.bind(this));
+
+    const radios = document.querySelectorAll('input[name="option"]');
+    radios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        this.option = document.querySelector(
+          'input[name="option"]:checked'
+        ).value;
+        console.log('Now selected:', this.option);
+        if (this.option === 'company') {
+          this.dates.classList.remove('hidden');
+        } else {
+          this.dates.classList.add('hidden');
+        }
+      });
+    });
+
+    document.getElementById('from')?.addEventListener('change', (even) => {
+      this.from = even.target.value;
+      console.log('Selected date:', this.from);
+    });
+    document.getElementById('to')?.addEventListener('change', (even) => {
+      this.to = even.target.value;
+      console.log('Selected date:', this.to);
+    });
+  }
+
+  addHadlerToNews() {
+    const cards = document.querySelectorAll('.card.news');
+
+    cards.forEach((card) => {
+      const dialog = card.querySelector('dialog');
+      const closeBtn = dialog.querySelector('button');
+
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('dialog') || e.target.tagName === 'BUTTON') return;
+        dialog.showModal();
+      });
+
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dialog.close();
+      });
+    });
   }
 
   getSavedOptions() {
@@ -106,23 +178,73 @@ export class NewsSearchBar {
   }
 
   async handleSearch() {
-    const category = this.searchInput.value.trim();
-    if (category) {
-      document.getElementById('cards-container')?.remove();
-      try {
-        const news = await finnHubAPIClient.searchNewsByCategory(category);
-        setLocalStorage(lastSearch, news);
-        if (news) {
-          const newsContainer = `<div id="cards-container" class="cards-container">${news
-            .filter((item) => item.summary !== '')
-            .map(newsCardTemplate)
-            .join('')}</div>`;
-          document
-            .querySelector('main')
-            ?.insertAdjacentHTML(beforeEnd, newsContainer);
+    if (this.option === 'market') {
+      const category = this.searchInput.value.trim();
+      if (category) {
+        document.getElementById('cards-container')?.remove();
+        try {
+          const news = await finnHubAPIClient.searchNewsByCategory(category);
+          setLocalStorage(lastSearch, news);
+          if (news) {
+            const newsContainer = `<div id="cards-container" class="cards-container">${news
+              .filter((item) => item.summary !== '')
+              .map(newsCardTemplate)
+              .join('')}</div>`;
+            document
+              .querySelector('main')
+              ?.insertAdjacentHTML(beforeEnd, newsContainer);
+            this.addHadlerToNews();
+          }
+        } catch (error) {
+          return;
         }
-      } catch (error) {
-        return;
+      }
+    }
+    if (this.option === 'company') {
+      const symbol = this.searchInput.value.trim();
+      if (symbol) {
+        document.getElementById('cards-container')?.remove();
+        try {
+          const news = await finnHubAPIClient.searchNewsByCompany(
+            symbol,
+            this.from,
+            this.to
+          );
+          setLocalStorage(lastSearch, news);
+          if (news) {
+            const newsContainer = `<div id="cards-container" class="cards-container">${news
+              .filter((item) => item.summary !== '')
+              .map(newsCardTemplate)
+              .join('')}</div>`;
+            document
+              .querySelector('main')
+              ?.insertAdjacentHTML(beforeEnd, newsContainer);
+            this.addHadlerToNews();
+          }
+        } catch (error) {
+          return;
+        }
+      }
+    }
+    if (this.option === 'symbol') {
+      const query = this.searchInput.value.trim();
+      if (query) {
+        document.getElementById('cards-container')?.remove();
+        try {
+          const { result: symbols } =
+            await finnHubAPIClient.searchSymbolByQuery(query);
+          setLocalStorage(symbolsSearch, symbols);
+          if (symbols) {
+            const symbolsContainer = `<div id="cards-container" class="cards-container">${symbols
+              .map(searchSymbolTemplate)
+              .join('')}</div>`;
+            document
+              .querySelector('main')
+              ?.insertAdjacentHTML(beforeEnd, symbolsContainer);
+          }
+        } catch (error) {
+          return;
+        }
       }
     }
   }

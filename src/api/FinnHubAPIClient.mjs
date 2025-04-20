@@ -17,4 +17,28 @@ export default class FinnHubAPIClient {
       return [];
     }
   }
+
+  async searchNewsByCompany(symbol, from, to) {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}company-news?symbol=${symbol}&from=${from}&to=${to}&token=${this.apiKey}`
+      );
+      const data = await convertToJson(response);
+      return data;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  async searchSymbolByQuery(query) {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}search?q=${query}&token=${this.apiKey}`
+      );
+      const data = await convertToJson(response);
+      return data;
+    } catch (error) {
+      return [];
+    }
+  }
 }

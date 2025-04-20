@@ -39,6 +39,24 @@ export const newsCardTemplate = ({
       <img src="${image}" alt="${source} logo image" width="15" height="12" loading="lazy" />
     </p>
     <p class="summary">${summary.substring(0, 300)}...</p>
-    <dialog>${summary}</dialog>
+    <dialog>
+      <button>X</button>
+      <h2>${headline}</h2>
+      <div>${summary}</div>
+    </dialog>
+  </div>
+`;
+
+export const searchSymbolTemplate = ({
+  description,
+  symbol,
+  type,
+  displaySymbol,
+}) => `
+  <div id="${symbol}-${type}" class="card symbol">
+    <p class="symbol">${symbol}</p>
+    <p class="type">${type}</p>
+    <p class="dysplay-symbol"><strong>${displaySymbol}</strong></p>
+    <p class="description">${description}</p>
   </div>
 `;
